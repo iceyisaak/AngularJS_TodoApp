@@ -31,9 +31,10 @@
         <ul ng-show="todos.length">
             <li ng-repeat="todo in todos track by $index">
                 <input type="checkbox" ng-model="todo.done" />
-                <span ng-class="{'done' :todo.done}" ng-click="delTodo($index)">
+                <span ng-class="{'done' :todo.done}">
                     {{ todo.task }} {{ todo.date | date: 'dd/MM/yyyy' }}
-                </span>    
+                </span>
+                <button ng-click="delTodo($index)">X</button>    
                 <span ng-class="{'overdue' : date > todo.date }" ng-show="todo.done == false && date > todo.date">
                      Over Dued
                 </span>
