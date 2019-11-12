@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>AngularJS TodoApp</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.js"></script>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body ng-app="TodoApp">
+
+    <div ng-Controller="TodoController">
+        <h1>{{ title }}</h1>
+
+        <form name="formTodo" ng-submit="addTodo()">
+            <input type="text" name="todoItem" id="item" placeholder="Add Task" ng-model="newTask" ng-minlength="10"
+                required />
+            <input type="date" name="todoDate" id="date" ng-model="newDate"
+                value="{{ newDate | date: 'dd/MM/yyyy' }}" />
+            <button type="submit" class="btn" ng-disabled="formTodo.$invalid">
+                Add to List
+            </button>
+            <hr>
+            <p ng-show="formTodo.$invalid">Minimun Length is 10 Characters</p>
+            <br>
+        </form>
+        
+        <ul ng-show="todos.length">
+            <li ng-repeat="todo in todos track by $index">
+                <input type="checkbox" ng-model="todo.done" />
+                <span ng-class="{'done' :todo.done}" ng-click="delTodo($index)">
+                    {{ todo.task }} {{ todo.date | date: 'dd/MM/yyyy' }}
+                </span>    
+                <span ng-class="{'overdue' : date > todo.date }" ng-show="todo.done == false && date > todo.date">
+                     Over Dued
+                </span>
+            </li>
+        </ul>
+
+    </div>
+
+    <script src="src/app.js"></script>
+
+</body>
+
+</html>
